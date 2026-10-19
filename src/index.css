@@ -1,0 +1,80 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+@import "@fontsource-variable/red-hat-display";
+
+@theme inline {
+  --font-sans: 'Red Hat Display Variable', system-ui, sans-serif;
+  --font-heading: var(--font-sans);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --color-foreground: var(--foreground);
+  --color-background: var(--background);
+  --color-ok: var(--ok);
+  --color-ok-soft: var(--ok-soft);
+  --color-warn: var(--warn);
+  --color-warn-soft: var(--warn-soft);
+  --color-bad: var(--bad);
+  --color-bad-soft: var(--bad-soft);
+  --color-yellow: #F2B629;
+  --color-peach: #FBDAB0;
+  --color-cream: #FEF3E2;
+  --color-ink: #1A1A1A;
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+}
+
+/* Brand palette mapped onto shadcn tokens. */
+:root {
+  --radius: 0.75rem;
+  --background: #FEF3E2;
+  --foreground: #1A1A1A;
+  --card: #FFFFFF;
+  --card-foreground: #1A1A1A;
+  --popover: #FFFFFF;
+  --popover-foreground: #1A1A1A;
+  --primary: #F2B629;
+  --primary-foreground: #1A1A1A;
+  --secondary: #FBDAB0;
+  --secondary-foreground: #1A1A1A;
+  --muted: #FBEBD3;
+  --muted-foreground: #6E655C;
+  --accent: #FBDAB0;
+  --accent-foreground: #1A1A1A;
+  --destructive: #C23B22;
+  --border: #EED9BC;
+  --input: #E8D3B4;
+  --ring: #1A1A1A;
+  --ok: #1E7A4C;
+  --ok-soft: #E3F4EA;
+  --warn: #9A5B00;
+  --warn-soft: #FFF1D1;
+  --bad: #C23B22;
+  --bad-soft: #FCE6E1;
+}
+
+@layer base {
+  * { @apply border-border outline-ring/50; }
+  html { -webkit-text-size-adjust: 100%; }
+  body { @apply bg-background text-foreground font-sans antialiased; }
+}
+
+@keyframes shake { 20%, 60% { transform: translateX(-5px); } 40%, 80% { transform: translateX(5px); } }
+.shake { animation: shake .35s; }
