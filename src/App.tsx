@@ -32,7 +32,7 @@ function Header({ view }: { view: string }) {
         {sent.size > 0 && <Badge className="bg-ink text-cream">{sent.size} sent</Badge>}
       </nav>
       <div className="ml-auto flex items-center gap-2.5">
-        <span className="hidden flex-col text-right leading-tight sm:flex"><strong>{RECRUITER.name}</strong><small className="text-muted-foreground">{FACILITY.name}, {FACILITY.city}</small></span>
+        <span className="hidden flex-col text-right leading-tight sm:flex"><strong>{RECRUITER.name}</strong><small className="text-muted-foreground">{FACILITY.name}</small></span>
         <Avatar className="size-9"><AvatarFallback className="bg-peach text-[13px] font-bold text-ink">{RECRUITER.initials}</AvatarFallback></Avatar>
       </div>
     </header>
@@ -41,9 +41,9 @@ function Header({ view }: { view: string }) {
 
 const DEMOS = [
   { key: "happy", tag: "1", tone: "bg-primary text-ink", title: "Happy path", sub: "Search → Results → Profile → Send" },
-  { key: "green", tag: "✓", tone: "bg-[#2E9C63] text-white", title: "Fit Check green", sub: "Anna Becker, all must-haves met" },
-  { key: "red", tag: "A", tone: "bg-[#E05A3F] text-white", title: "Edge A · No German licence", sub: "Send blocked + 3 alternatives" },
-  { key: "zero", tag: "B", tone: "bg-primary text-ink", title: "Edge B · Zero results", sub: "15 km, start in 7 days, German licence only" },
+  { key: "green", tag: "✓", tone: "bg-[#2E9C63] text-white", title: "Fit Check green", sub: "Maria Delgado, all must-haves met" },
+  { key: "red", tag: "A", tone: "bg-[#E05A3F] text-white", title: "Edge A · No Texas license", sub: "Send blocked + 3 alternatives" },
+  { key: "zero", tag: "B", tone: "bg-primary text-ink", title: "Edge B · Zero results", sub: "10 mi, start in 7 days, TX license only" },
   { key: "amber", tag: "!", tone: "bg-[#E89A1B] text-ink", title: "Bonus · Fit Check amber", sub: "Preferred criterion missed" },
 ]
 
@@ -53,9 +53,9 @@ function DemoPanel() {
   const run = (key: string) => {
     if (key === "zero") setFilters({ ...EDGE_B_FILTERS })
     else setFilters({ ...DEFAULT_FILTERS })
-    const target = { happy: "#/search", green: "#/profile/anna-becker", red: "#/profile/tom-hughes", zero: "#/results", amber: "#/profile/sophie-wagner" }[key]!
+    const target = { happy: "#/search", green: "#/profile/maria-delgado", red: "#/profile/jordan-pike", zero: "#/results", amber: "#/profile/sofia-brennan" }[key]!
     go(target)
-    if (key === "happy") toast("Happy path: click “Show clinicians”, then Anna Becker")
+    if (key === "happy") toast("Happy path: click “Show clinicians”, then Maria Delgado")
     if (window.innerWidth < 1100) setOpen(false)
   }
   return (

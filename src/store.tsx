@@ -14,7 +14,7 @@ interface Store {
   reset: () => void
 }
 
-const KEY = "sms-prototype-eu-v1"
+const KEY = "sms-prototype-us-v1"
 const Ctx = createContext<Store | null>(null)
 
 function load(): { filters?: Filters; sent?: string[]; events?: AppEvent[] } {
@@ -33,7 +33,7 @@ export function StoreProvider({ children }: { children: ReactNode }) {
   }, [filters, sent, events])
 
   const log = useCallback((name: string, props: AppEvent["props"] = {}) => {
-    const t = new Date().toLocaleTimeString("en-GB")
+    const t = new Date().toLocaleTimeString("en-US")
     setEvents((e) => [{ t, name, props }, ...e].slice(0, 40))
   }, [])
 

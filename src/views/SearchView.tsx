@@ -13,7 +13,7 @@ export function SearchView() {
   const n = search(filters).length
   return (
     <section className="mx-auto max-w-3xl">
-      <Eyebrow>New search · {FACILITY.name}, {FACILITY.city}</Eyebrow>
+      <Eyebrow>New search · {FACILITY.name}</Eyebrow>
       <h1 className="text-[clamp(30px,4.2vw,44px)] leading-tight font-extrabold tracking-tight">Who do you need to hire?</h1>
       <p className="mt-2 mb-6 max-w-xl text-lg text-muted-foreground">
         Set the must-haves. You only see clinicians who can actually take the job, ranked by how well they fit.
@@ -23,7 +23,7 @@ export function SearchView() {
           <div className="flex flex-wrap items-center gap-2 text-sm">
             <span className="text-muted-foreground">Saved search</span>
             <Button size="sm" variant="secondary" className="rounded-full font-semibold" onClick={() => setFilters({ ...DEFAULT_FILTERS })}>
-              ICU nurse · Nights · Berlin
+              ICU RN · Nights · Texas
             </Button>
           </div>
           <FilterForm />

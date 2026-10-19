@@ -63,13 +63,13 @@ export function FilterForm({ compact = false }: { compact?: boolean }) {
     <div className={cn("grid gap-x-6 gap-y-5", compact ? "grid-cols-1" : "sm:grid-cols-2")}>
       <Field label="Role" id="f-role" right={<RequiredTag />}>
         <Pick id="f-role" value={f.specialty} onChange={(v) => set("specialty", v)}
-          options={Object.entries(SPECIALTY).map(([k, v]) => [k as Filters["specialty"], `${v} nurse`])} />
+          options={Object.entries(SPECIALTY).map(([k, v]) => [k as Filters["specialty"], `${v} Registered Nurse`])} />
       </Field>
-      <Field label="Licence to practise" id="f-licence" right={<RequiredTag />}>
-        <div id="f-licence" className="flex h-10 items-center rounded-lg border bg-muted px-3 text-sm font-semibold">Germany</div>
+      <Field label="State license" id="f-license" right={<RequiredTag />}>
+        <div id="f-license" className="flex h-10 items-center rounded-lg border bg-muted px-3 text-sm font-semibold">Texas</div>
         <div className="flex items-center gap-2">
-          <Checkbox id="f-eu" checked={f.acceptEU} onCheckedChange={(v) => set("acceptEU", v === true)} />
-          <Label htmlFor="f-eu" className="font-medium">Accept EU qualifications (automatic recognition)</Label>
+          <Checkbox id="f-nlc" checked={f.acceptNLC} onCheckedChange={(v) => set("acceptNLC", v === true)} />
+          <Label htmlFor="f-nlc" className="font-medium">Accept NLC multistate licenses</Label>
         </div>
       </Field>
       <Field label="Shift pattern" id="f-shift" right={<ModeToggle label="Shift" value={f.shiftMode} onChange={(m) => set("shiftMode", m)} />}>
@@ -79,11 +79,11 @@ export function FilterForm({ compact = false }: { compact?: boolean }) {
         <Pick id="f-start" value={f.startWithin} onChange={(v) => set("startWithin", v)}
           options={START_STEPS.map((d) => [d, `Within ${d} days (by ${dateIn(d)})`])} />
       </Field>
-      <Field label="Distance from hospital" id="f-radius" right={<ModeToggle label="Distance" value={f.radiusMode} onChange={(m) => set("radiusMode", m)} />}>
-        <Pick id="f-radius" value={f.radius} onChange={(v) => set("radius", v)} options={RADIUS_STEPS.map((d) => [d, `Within ${d} km`])} />
+      <Field label="Distance from facility" id="f-radius" right={<ModeToggle label="Distance" value={f.radiusMode} onChange={(m) => set("radiusMode", m)} />}>
+        <Pick id="f-radius" value={f.radius} onChange={(v) => set("radius", v)} options={RADIUS_STEPS.map((d) => [d, `Within ${d} miles`])} />
       </Field>
-      <Field label="ICU specialist training" id="f-cert" right={<ModeToggle label="ICU specialist training" value={f.certMode} onChange={(m) => set("certMode", m)} />}>
-        <p className="text-xs text-muted-foreground">Fachweiterbildung Intensivpflege or EU equivalent</p>
+      <Field label="CCRN certification" id="f-cert" right={<ModeToggle label="CCRN certification" value={f.certMode} onChange={(m) => set("certMode", m)} />}>
+        <p className="text-xs text-muted-foreground">Critical care RN certification (AACN)</p>
       </Field>
       <div className={cn("flex items-center gap-3", !compact && "sm:col-span-2")}>
         <Switch id="f-active" checked={f.activeOnly} onCheckedChange={(v) => set("activeOnly", v)} className="data-[state=checked]:bg-ok" />

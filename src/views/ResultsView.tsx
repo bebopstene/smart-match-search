@@ -7,7 +7,7 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible"
 import { ActiveBadge, Breakdown, ClinicianAvatar, CriteriaChips, Eyebrow, ScoreRing } from "@/components/bits"
 import { FilterForm } from "@/components/FilterForm"
-import { SPECIALTY_SHORT, type Filters } from "@/data"
+import { SPECIALTY, type Filters } from "@/data"
 import { ago, fullName, nearMisses, plural, querySummary, relaxations, search, type Result } from "@/match"
 import { useStore } from "@/store"
 
@@ -26,7 +26,7 @@ function ResultCard({ r, f, sent }: { r: Result; f: Filters; sent: boolean }) {
             {sent && <Badge className="bg-ink text-cream">Proposal sent</Badge>}
           </div>
           <p className="mt-0.5 mb-2 text-sm text-muted-foreground">
-            {SPECIALTY_SHORT[c.specialty]} · {plural(c.years, "yr")} · <MapPin className="inline size-3.5 align-[-2px]" /> {c.city} · active {ago(c.lastActive)}
+            {SPECIALTY[c.specialty]} · {plural(c.years, "yr")} · <MapPin className="inline size-3.5 align-[-2px]" /> {c.city} · active {ago(c.lastActive)}
           </p>
           <CriteriaChips c={c} ev={ev} f={f} />
         </div>

@@ -6,7 +6,7 @@ import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
 import { Eyebrow } from "@/components/bits"
 import { cn } from "@/lib/utils"
-import { BY_ID, FACILITY, RECRUITER, SHIFT, SPECIALTY, SPECIALTY_SHORT } from "@/data"
+import { BY_ID, FACILITY, RECRUITER, SHIFT, SPECIALTY } from "@/data"
 import { ago, dateIn, evaluate, fullName, replyEstimate, search } from "@/match"
 import { go, useStore } from "@/store"
 import { NotFound } from "./ProfileView"
@@ -17,7 +17,7 @@ export function SendView({ id }: { id: string }) {
   const ev = c ? evaluate(c, f) : null
   const [msg, setMsg] = useState(() => c ? `Hi ${c.first},
 
-I'm ${RECRUITER.first}, a recruiter at ${FACILITY.name} in ${FACILITY.city}. We're hiring ${/^[AEIOU]/.test(SPECIALTY_SHORT[f.specialty]) ? "an" : "a"} ${SPECIALTY_SHORT[f.specialty]} nurse for ${SHIFT[f.shift].toLowerCase()} (12-hour shifts), starting by ${dateIn(f.startWithin)}. Your ${SPECIALTY_SHORT[c.specialty]} experience${c.icuCert ? " and ICU specialist training look" : " looks"} like a strong fit.
+I'm ${RECRUITER.first}, a recruiter at ${FACILITY.name} in Houston. We're hiring ${/^[AEIOU]/.test(SPECIALTY[f.specialty]) ? "an" : "a"} ${SPECIALTY[f.specialty]} Registered Nurse for ${SHIFT[f.shift].toLowerCase()} (3×12h), starting by ${dateIn(f.startWithin)}. Your ${SPECIALTY[c.specialty]} experience${c.ccrn ? " and CCRN look" : " looks"} like a strong fit.
 
 Would you be open to a 15-minute call this week?
 
@@ -75,9 +75,9 @@ ${RECRUITER.title}, ${FACILITY.name}` : "")
             <CardContent>
               <dl className="flex flex-col gap-2.5">
                 {[
-                  ["Role", `${SPECIALTY[f.specialty]} nurse`],
+                  ["Role", `${SPECIALTY[f.specialty]} Registered Nurse`],
                   ["Hospital", `${FACILITY.name}, ${FACILITY.area}`],
-                  ["Shift", `${SHIFT[f.shift]}, 12-hour shifts`],
+                  ["Shift", `${SHIFT[f.shift]}, 3×12h`],
                   ["Start", `By ${dateIn(f.startWithin)}`],
                 ].map(([k, v]) => (
                   <div key={k}><dt className="text-xs font-bold tracking-[.06em] text-muted-foreground uppercase">{k}</dt><dd className="font-semibold">{v}</dd></div>

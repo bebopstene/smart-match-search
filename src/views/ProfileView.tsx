@@ -6,8 +6,8 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { ActiveBadge, ClinicianAvatar, CritIcon, ScoreRing } from "@/components/bits"
 import { cn } from "@/lib/utils"
-import { BY_ID, COUNTRY, FACILITY, SHIFT, SPECIALTY, type Clinician } from "@/data"
-import { MODE_LABEL, ago, alternatives, dateIn, evaluate, fullName, licenceCheck, type Criterion, type Evaluation } from "@/match"
+import { BY_ID, FACILITY, SHIFT, SPECIALTY, STATE, type Clinician } from "@/data"
+import { MODE_LABEL, ago, alternatives, dateIn, evaluate, fullName, licenseCheck, type Criterion, type Evaluation } from "@/match"
 import { useStore } from "@/store"
 
 const STATUS = {
@@ -37,8 +37,8 @@ function FitCheck({ c, ev, sent }: { c: Clinician; ev: Evaluation; sent: boolean
   const body = {
     green: `All must-haves met. ${c.first} can take this job.`,
     amber: `All must-haves met. Missing preferred: ${ev.preferredMissed.map((k) => k.label).join(", ")}. You can still send.`,
-    red: ev.requiredMissed[0]?.key === "licence"
-      ? `${c.first} is not licensed to practise in Germany, so this proposal can't lead to a hire.`
+    red: ev.requiredMissed[0]?.key === "license"
+      ? `${c.first} has no Texas or NLC multistate license, so this proposal can't lead to a hire.`
       : `${c.first} is missing a must-have: ${ev.requiredMissed.map((k) => k.label).join(", ")}.`,
   }[ev.status]
 
@@ -107,7 +107,7 @@ export function ProfileView({ id }: { id: string }) {
               <div className="order-3 min-w-0 basis-full sm:order-2 sm:flex-1 sm:basis-auto">
                 <h1 className="text-[26px] font-extrabold tracking-tight">{fullName(c)} <span className="text-base font-medium text-muted-foreground">{c.creds}</span></h1>
                 <p className="mt-0.5 mb-2 text-sm text-muted-foreground">
-                  {SPECIALTY[c.specialty]} nurse · <MapPin className="inline size-3.5 align-[-2px]" /> {c.city} · {c.distance} km from {FACILITY.name}
+                  {SPECIALTY[c.specialty]} Registered Nurse · <MapPin className="inline size-3.5 align-[-2px]" /> {c.city} · {c.distance} mi from {FACILITY.name}
                 </p>
                 <div className="flex flex-wrap gap-1.5">
                   <ActiveBadge c={c} />
@@ -129,8 +129,8 @@ export function ProfileView({ id }: { id: string }) {
               <p>{c.about}</p>
               <dl className="grid gap-x-5 gap-y-4 sm:grid-cols-2">
                 {[
-                  ["Licence", c.licences.map((l) => `${COUNTRY[l.country].adj} nursing qualification${l.kind === "de" ? " · licensed in Germany" : l.kind === "eu" ? " · EU automatic recognition" : " · recognition pending"}`).join(", ")],
-                  ["Certifications", c.icuCert ? "ICU specialist training, BLS, ALS" : "BLS, ALS"],
+                  ["Licenses", c.licenses.map((l) => `${STATE[l.state]} RN${l.compact ? " · multistate (NLC)" : ""}`).join(", ")],
+                  ["Certifications", c.ccrn ? "CCRN, BLS, ACLS" : "BLS, ACLS"],
                   ["Shifts", c.shifts.map((s) => SHIFT[s]).join(", ")],
                   ["Available from", `${dateIn(c.startDays)} (in ${c.startDays} days)`],
                 ].map(([k, v]) => (
@@ -157,7 +157,7 @@ export function ProfileView({ id }: { id: string }) {
           {ev.status === "red" && (
             <Card id="alts">
               <CardHeader>
-                <CardTitle className="text-lg font-bold">{alts.length} similar clinicians who can practise in Germany</CardTitle>
+                <CardTitle className="text-lg font-bold">{alts.length} similar clinicians licensed in Texas</CardTitle>
                 <CardDescription>Same specialty and shift, all must-haves met.</CardDescription>
               </CardHeader>
               <CardContent className="flex flex-col gap-2">
@@ -165,7 +165,7 @@ export function ProfileView({ id }: { id: string }) {
                   <a key={a.id} href={`#/profile/${a.id}`} className="flex items-center gap-3 rounded-xl border bg-background px-3 py-2.5 hover:border-primary">
                     <ClinicianAvatar c={a} className="size-9 text-sm" />
                     <span className="min-w-0 flex-1"><strong className="block">{fullName(a)}</strong>
-                      <small className="text-muted-foreground">{licenceCheck(a, filters).short} · {a.distance} km · starts in {a.startDays}d</small></span>
+                      <small className="text-muted-foreground">{licenseCheck(a, filters).short} · {a.distance} mi · starts in {a.startDays}d</small></span>
                     <ScoreRing score={aev.score} size={40} />
                   </a>
                 ))}
